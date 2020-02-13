@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled, { css } from 'styled-components';
+import { DashBoardContext } from '../../Context/DashBoardProvider';
+
 
 const Logo = styled.div`
   font-size: 1.5rem;
@@ -32,6 +34,10 @@ function ControlButton({name, active}){
 
 
 export default function AppBar() {
+
+  const {page, setPage} = useContext(DashBoardContext)
+
+  console.log('PAGE', page)
   return (
     <Bar>
       <div>CryptoDash</div>
