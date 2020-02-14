@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { DashBoardContext } from '../../Context/DashBoardProvider';
 
 
+
 const Logo = styled.div`
   font-size: 1.5rem;
 `
@@ -25,8 +26,9 @@ function toProperCase(lower){
 }
 
 function ControlButton({name, active}){
+    const { page, setPage } = useContext(DashBoardContext);
   return (
-    <ControlButtonElem active={active}>
+    <ControlButtonElem onClick={() => setPage(name)} active={name === page}>
       {toProperCase(name)}
     </ControlButtonElem>
   )
@@ -34,16 +36,14 @@ function ControlButton({name, active}){
 
 
 export default function AppBar() {
-
-  const {page, setPage} = useContext(DashBoardContext)
-
+  const { page, setPage } = useContext(DashBoardContext);
   console.log('PAGE', page)
   return (
     <Bar>
-      <div>CryptoDash</div>
+      <Logo>CryptoDash</Logo>
       <div />
       <ControlButton active name="dashboard" />
-      <ControlButton name="Settings" />
+      <ControlButton name="settings" />
     </Bar>
   );
 }
