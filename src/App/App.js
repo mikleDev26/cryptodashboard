@@ -5,6 +5,7 @@ import DashBordProvider from '../Context/DashBoardProvider';
 import AppLayout from './AppLayout';
 import AppBar from '../components/AppBar/AppBar';
 import SettingsPage from '../Pages/SettingsPage/SettingsPage';
+import Content from '../Shared/Content';
 
 function App() {
   return (
@@ -12,9 +13,10 @@ function App() {
     <AppLayout>
       <DashBordProvider>
         <AppBar />
-        <div className="App">
+        <Content>
+          {' '}
           <SettingsPage />
-        </div>
+        </Content>
       </DashBordProvider>
     </AppLayout>
   );
