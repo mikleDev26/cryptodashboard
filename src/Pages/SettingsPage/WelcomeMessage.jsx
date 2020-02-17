@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { DashBoardContext } from "../../Context/DashBoardProvider";
+import React, { useContext } from 'react';
+import { DashBoardContext } from '../../Context/DashBoardProvider';
 
 export default function WelcomeMessage() {
   const { firstVisit } = useContext(DashBoardContext);

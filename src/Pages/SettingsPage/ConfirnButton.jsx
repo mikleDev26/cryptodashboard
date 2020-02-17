@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
-import styled from "styled-components";
-import { DashBoardContext } from "../../Context/DashBoardProvider";
+import React, { useContext } from 'react';
+import styled from 'styled-components';
+import { DashBoardContext } from '../../Context/DashBoardProvider';
 
 const ConfirmButton = styled.div`
   margin: 20px;
