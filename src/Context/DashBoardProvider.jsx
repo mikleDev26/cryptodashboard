@@ -4,18 +4,19 @@ import cc from 'cryptocompare';
 export const DashBoardContext = createContext();
 
 export default function DashBoardProvider(props) {
-  const [state, setState] = useState({ ...savedSettigns() });
-
-  const setPage = (page) => setState({ ...state, page });
 
 
   function savedSettigns() {
     const crypoDashData = JSON.parse(localStorage.getItem('cryptoDash'));
     if (!crypoDashData) {
-      return { page: 'settings', firstVisit: true };
+      return { page: 'dashboard', firstVisit: true };
     }
     return {};
   }
+
+  const [state, setState] = useState({ ...savedSettigns() });
+
+  const setPage = (page) => setState({ ...state, page });
 
   function confirmFavorites() {
     setState({
@@ -32,7 +33,7 @@ export default function DashBoardProvider(props) {
 
   async function fetchCoins() {
     const coinList = (await cc.coinList()).Data;
-    console.log(coinList)
+    console.log(coinList);
   }
 
   useEffect(() => {
