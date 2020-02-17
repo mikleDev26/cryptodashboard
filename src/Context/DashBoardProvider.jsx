@@ -4,7 +4,7 @@ import cc from 'cryptocompare';
 export const DashBoardContext = createContext();
 
 export default function DashBoardProvider(props) {
-
+  const [coinList, setCoinList] = useState(null);
 
   function savedSettigns() {
     const crypoDashData = JSON.parse(localStorage.getItem('cryptoDash'));
@@ -33,13 +33,12 @@ export default function DashBoardProvider(props) {
 
   async function fetchCoins() {
     const coinList = (await cc.coinList()).Data;
-    console.log(coinList);
+    setCoinList(coinList);
   }
 
   useEffect(() => {
     fetchCoins();
   }, []);
-
 
   return (
     <DashBoardContext.Provider
@@ -47,6 +46,7 @@ export default function DashBoardProvider(props) {
         page: state.page,
         setPage,
         confirmFavorites,
+        coinList,
         firstVisit: state.firstVisit,
       }}
     >
