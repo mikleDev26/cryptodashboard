@@ -1,12 +1,14 @@
 import React, { useState, createContext, useEffect } from 'react';
 import cc from 'cryptocompare';
+import _ from 'lodash';
 
 export const DashBoardContext = createContext();
 
 export default function DashBoardProvider(props) {
-
   const [coinList, setCoinList] = useState(null);
   const [favorites, setFavorites] = useState(['BTC', 'ETH', 'XMR', 'DOGE']);
+
+  const MAX_FAVORITES = 10;
 
   function savedSettigns() {
     const crypoDashData = JSON.parse(localStorage.getItem('cryptoDash'));
@@ -19,6 +21,19 @@ export default function DashBoardProvider(props) {
   const [state, setState] = useState({ ...savedSettigns() });
 
   const setPage = (page) => setState({ ...state, page });
+
+  function addCoin(key) {
+    const favoriteCoinsList = [...favorites];
+    if (favoriteCoinsList.length < MAX_FAVORITES) {
+      favoriteCoinsList.push(key);
+      setFavorites(favoriteCoinsList);
+    }
+  }
+
+  function removeCoin(key) {
+    const favoriteCoinsList = [...favorites];
+    setFavorites(_.pull(favoriteCoinsList, key));
+  }
 
   function confirmFavorites() {
     setState({
@@ -34,8 +49,8 @@ export default function DashBoardProvider(props) {
   }
 
   async function fetchCoins() {
-    const coinList = (await cc.coinList()).Data;
-    setCoinList(coinList);
+    const listOfCoins = (await cc.coinList()).Data;
+    setCoinList(listOfCoins);
   }
 
   useEffect(() => {
@@ -51,6 +66,8 @@ export default function DashBoardProvider(props) {
         coinList,
         favorites,
         firstVisit: state.firstVisit,
+        addCoin,
+        removeCoin,
       }}
     >
       {props.children}

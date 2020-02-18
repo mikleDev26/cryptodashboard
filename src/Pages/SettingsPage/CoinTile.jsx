@@ -5,9 +5,17 @@ import CoinHeaderGrid from './CoinHeaderGrid';
 import CoinImage from '../../Shared/CoinImage';
 
 
+function clickCoinHandler(topSection, coinKey, addCoin, removeCoin) {
+  return topSection ? () => {
+    removeCoin(coinKey);
+  } : () => {
+    addCoin(coinKey);
+  };
+}
+
 export default function CoinTile(props) {
   const { coinKey, topSection } = props;
-  const { coinList } = useContext(DashBoardContext);
+  const { coinList, addCoin, removeCoin } = useContext(DashBoardContext);
 
   const coin = coinList[coinKey];
 
@@ -16,10 +24,10 @@ export default function CoinTile(props) {
   if (topSection) {
     TileClass = DeletableTile;
   }
-  console.log('Coin', coin);
+  console.log('AddCoin', addCoin);
 
   return (
-    <TileClass>
+    <TileClass onClick={clickCoinHandler(topSection, coinKey, addCoin, removeCoin)}>
       <CoinHeaderGrid topSection name={coin.CoinName} symbol={coin.Symbol} />
       <CoinImage coin={coin} />
     </TileClass>
