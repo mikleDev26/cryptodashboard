@@ -4,7 +4,9 @@ import cc from 'cryptocompare';
 export const DashBoardContext = createContext();
 
 export default function DashBoardProvider(props) {
+
   const [coinList, setCoinList] = useState(null);
+  const [favorites, setFavorites] = useState(['BTC', 'ETH', 'XMR', 'DOGE']);
 
   function savedSettigns() {
     const crypoDashData = JSON.parse(localStorage.getItem('cryptoDash'));
@@ -47,6 +49,7 @@ export default function DashBoardProvider(props) {
         setPage,
         confirmFavorites,
         coinList,
+        favorites,
         firstVisit: state.firstVisit,
       }}
     >
